@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgentsTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateAgentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('phone');
-            $table->string('promo_cod');
+            $table->foreignId('agent_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->string('count');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateAgentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agents');
+        Schema::dropIfExists('clients');
     }
 }
