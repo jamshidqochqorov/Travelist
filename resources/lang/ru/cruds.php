@@ -70,4 +70,16 @@ return [
             'deleted_at_helper'        => ' ',
         ],
     ],
+    'agent'=>[
+        'title'=>'Агенты',
+        'title_singular' => 'Агент',
+        'fields'=>[
+            'id'=>'ID',
+            'firstname'=>'Ismi',
+            'lastname'=>'Familya',
+            'phone'=>'Telfon Nomer',
+            'promo_cod'=>'Promo Kod'
+
+        ]
+    ]
 ];

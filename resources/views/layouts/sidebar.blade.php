@@ -8,6 +8,51 @@
           'user.show'
        ])
             <li class="nav-item has-treeview">
+                <a href="#" class="nav-link {{ (Request::is('agent*') || Request::is('category*') || Request::is('client*')) ? 'active':''}}">
+                    <i class="fas fa-list"></i>
+                    <p>
+                       Dashboard
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('agent*') || Request::is('category*') || Request::is('client*')) ? 'block':'none'}};">
+                    @can('agent.show')
+                        <li class="nav-item">
+                            <a href="{{ route('agentIndex') }}" class="nav-link {{ Request::is('agent*') ? "active":'' }}">
+                                <i class="fas fa-users"></i>
+                                <p>@lang('cruds.agent.title')</p>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @can('category.show')
+                        <li class="nav-item">
+                            <a href="{{ route('categoryIndex') }}" class="nav-link {{ Request::is('category*') ? "active":'' }}">
+                                <i class="fas fa-list-alt"></i>
+                                <p>Kategorya</p>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @can('client.show')
+                        <li class="nav-item">
+                            <a href="{{ route('clientIndex') }}" class="nav-link {{ Request::is('client*') ? "active":'' }}">
+                                <i class="fas fa-user-friends"></i>
+                                <p> Klentlar</p>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcanany
+    </ul>
+    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        @canany([
+          'permission.show',
+          'roles.show',
+          'user.show'
+       ])
+            <li class="nav-item has-treeview">
                 <a href="#" class="nav-link {{ (Request::is('permission*') || Request::is('role*') || Request::is('user*')) ? 'active':''}}">
                     <i class="fas fa-users-cog"></i>
                     <p>
