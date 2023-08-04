@@ -28,7 +28,6 @@
 
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <p>To'lov qismi</p>
                             <h3 class="profile-username text-center">Agent: {{$agent->firstname}} {{$agent->lastname}}</h3>
                          <form method="post" action="{{route('transactionCreate')}}">
                              @csrf
@@ -46,6 +45,15 @@
                              <input name="agent_id" type="hidden" value="{{$agent->id}}">
                              <button type="submit" class="btn btn-success">Jo'natish</button>
                          </form>
+                        </div>
+
+                    </div>
+                    <div class="card card-danger card-outline">
+                        <div class="card-body box-profile">
+                            <form method="post" action="{{route('historyDelete',$agent->id)}}">
+                                @csrf
+                                <button onclick="if (confirm('Вы уверены?')) { this.form.submit() } " type="button" class="my-5 btn btn-warning">Malumotni tozalash   <i class="fas fa-trash-alt"></i></button>
+                            </form>
                         </div>
 
                     </div>
@@ -129,15 +137,15 @@
                             </div>
                             <div class="row justify-content-end mt-2">
                                 <div class="col-sm-3">
-                                    <div>
-                                        <form method="post" action="{{route('agentDestroy',$agent->id)}}">
+                                    <div class="">
+                                        <form class="mx-2" method="post" action="{{route('agentDestroy',$agent->id)}}">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button onclick="if (confirm('Вы уверены?')) { this.form.submit() } " type="button" class="btn btn-danger w-md">Agenti O'chirish</button>
                                         </form>
-
                                     </div>
                                 </div>
+
                             </div>
                             <!-- end table-responsive -->
                         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\Client;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -66,6 +67,19 @@ class TransactionController extends Controller
         $transaction->save();
         return redirect()->route('transactionHistory',$agent->id);
 
+    }
+    public function history_delete($id){
+        $agent = Agent::find($id);
+        $transactions = Transaction::where('agent_id',$agent->id)->get();
+        foreach ($transactions as $transaction):
+            $transaction->delete();
+        endforeach;
+        $clients = Client::where('agent_id',$agent->id)->get();
+
+        foreach ($clients as $client):
+            $client->delete();
+        endforeach ;
+        return redirect()->route('transactionHistory',$agent->id);
     }
     public function destroy($id){
         $transaction = Transaction::find($id)->delete();

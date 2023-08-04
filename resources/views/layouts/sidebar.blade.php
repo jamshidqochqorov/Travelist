@@ -8,17 +8,17 @@
           'user.show'
        ])
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link {{ (Request::is('agent*') || Request::is('category*') || Request::is('client*')) ? 'active':''}}">
+                <a href="#" class="nav-link {{ (Request::is('agent*') || Request::is('category*') || Request::is('client*')|| Request::is('transaction*')) ? 'active':''}}">
                     <i class="fas fa-list"></i>
                     <p>
                        Dashboard
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: {{ (Request::is('agent*') || Request::is('category*') || Request::is('client*')) ? 'block':'none'}};">
+                <ul class="nav nav-treeview" style="display: {{ (Request::is('agent*') || Request::is('category*') || Request::is('client*') ||Request::is('transaction*') ) ? 'block':'none'}};">
                     @can('agent.show')
                         <li class="nav-item">
-                            <a href="{{ route('agentIndex') }}" class="nav-link {{ Request::is('agent*') ? "active":'' }}">
+                            <a href="{{ route('agentIndex') }}" class="nav-link {{ Request::is('agent*')||Request::is('transaction*') ? "active":'' }}">
                                 <i class="fas fa-users"></i>
                                 <p>@lang('cruds.agent.title')</p>
                             </a>

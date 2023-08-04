@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('/transaction/{id}/edit',[TransactionController::class,'edit'])->name('transactionEdit');
     Route::post('/transaction/update/{id}',[TransactionController::class,'update'])->name('transactionUpdate');
     Route::delete('/transaction/delete/{id}',[TransactionController::class,'destroy'])->name('transactionDestroy');
+    Route::post('/transaction/delete/{id}',[TransactionController::class,'history_delete'])->name('historyDelete');
 
     //back
 

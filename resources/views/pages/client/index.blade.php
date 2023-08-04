@@ -69,11 +69,13 @@
                                         @can('client.delete')
                                             <form method="post" action="{{route('clientDestroy',$client->id)}}">
                                                 @csrf
+                                                @if($client->category->deleted_at == null)
                                                 @can('client.edit')
                                                     <a href="{{ route('clientEdit',$client->id) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
                                                 @endcan
+                                                @endif()
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <button type="button"  onclick="if (confirm('Вы уверены?')) { this.form.submit() } " class="btn btn-outline-danger btn-sm edit" title="Delete">
                                                     <i class="fas fa-trash-alt"></i>

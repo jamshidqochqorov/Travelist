@@ -17,7 +17,7 @@ class AgentController extends Controller
     }
     public function add(){
         abort_if_forbidden('agent.add');
-        $latest_promo = Agent::latest()->first()->promo_cod;
+        $latest_promo = Agent::latest()->first()->promo_cod??0;
 
         return view('pages.agents.add',compact('latest_promo'));
     }
