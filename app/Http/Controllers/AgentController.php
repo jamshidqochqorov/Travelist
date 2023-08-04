@@ -11,24 +11,15 @@ class AgentController extends Controller
     public function index(Request $request){
 
         abort_if_forbidden('agent.show');
-        //searches
-        $searches = ['lastname','phone','promo_cod'];
-        $agents = Agent::where('id','!=',0);
 
-        foreach ($searches as $search):
-            if($request->has($search) && strlen($request->$search)){
-                $agents = $agents->where(function ($query) use ($request,$search){
-                    $query->where($search, 'like', '%'. $request->$search.'%');
-                });
-            }
-
-        endforeach;
-        $agents = $agents->get();
-        return view('pages.agents.index',compact('agents','request'));
+        $agents = Agent::all();
+        return view('pages.agents.index',compact('agents'));
     }
     public function add(){
         abort_if_forbidden('agent.add');
-        return view('pages.agents.add');
+        $latest_promo = Agent::latest()->first()->promo_cod;
+
+        return view('pages.agents.add',compact('latest_promo'));
     }
 
     public function create(Request$request){
@@ -44,8 +35,9 @@ class AgentController extends Controller
             'phone'=>$request->phone,
             'promo_cod'=>$request->promo_cod
         ]);
+        message_set('Agent Muvofiqiyatli yaratildi','success',3);
 
-        return redirect()->route('agentIndex')->with('success','Agent muvofaqiyatli yaratildi !');
+        return redirect()->route('agentIndex');
 
     }
     public function edit($id){
@@ -66,8 +58,8 @@ class AgentController extends Controller
         $agent->promo_cod  =$request->promo_cod;
         $agent->save();
 
-
-        return  redirect()->route('agentIndex')->with('success','Agent Tahrirlandi!');
+        message_set('Agent Tahrirlandi!','success','3');
+        return  redirect()->route('agentIndex');
     }
     public function destroy($id){
         $agent  = Agent::find($id);
@@ -76,10 +68,12 @@ class AgentController extends Controller
         $sum = $this->agentSum($agent->id);
         if($sum-$transactions_sum == 0){
             $agent->delete();
-            return redirect()->route('agentIndex')->with('success','Agent O\'chirildi ');
+            message_set('Agent o\'chirildi','success',3);
+            return redirect()->route('agentIndex');
 
         }else{
-            return  redirect()->route('transactionHistory',$agent->id)->with('warning','Atchotni tog\'irlang');
+            message_set('Atchotni to\'g\'irlang!','warning',3);
+            return  redirect()->route('transactionHistory',$agent->id);
         }
 
 

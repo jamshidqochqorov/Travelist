@@ -36,7 +36,7 @@ class ClientController extends Controller
     public function edit($id){
         $agents = Agent::all();
         $client = Client::find($id);
-        $categories = Category::all();
+        $categories = Category::withTrashed()->get();
         return view('pages.client.edit',compact('client','agents','categories'));
     }
     public function update(Request $request,$id)
@@ -51,8 +51,9 @@ class ClientController extends Controller
         $client->category_id = $request->category_id;
         $client->agent_id = $request->agent_id;
         $client->save();
+        message_set('Klent tahrirlandi!','success',3);
 
-        return redirect()->back()->with('success','Klent tahrirlandi!');
+        return redirect()->back();
     }
     public function destroy($id)
     {

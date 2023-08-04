@@ -60,6 +60,7 @@
                                 @if($errors->has('promo_cod'))
                                     <span class="error invalid-feedback">{{ $errors->first('promo_cod') }}</span>
                                 @endif
+                                <label>Ohirigi agent</label> <span class="badge badge-danger"> {{$latest_promo}}</span>
                             </div>
 
 

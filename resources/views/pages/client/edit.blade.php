@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6 text-center">
-                    <h1>Kleint Qo'shish</h1>
+                    <h1>Klent Tahrirlash</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -31,13 +31,13 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <form action="{{ route('clientCreate') }}" method="post">
+                        <form action="{{ route('clientUpdate',$client->id  ) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Promo Kod</label>
                                 <select name="agent_id" class="select2" style="width: 100%;" >
                                     @foreach($agents as $agent)
-                                        <option value="{{ $agent->id }}">{{ $agent->promo_cod }}</option>
+                                        <option value="{{ $agent->id }}" {{$agent->id==$client->agent_id?'selected':''}}>{{ $agent->promo_cod }}</option>
                                     @endforeach
                                 </select>
                                 @if($errors->has('agent_id'))
@@ -48,7 +48,7 @@
                                 <label>Kategorya</label>
                                 <select name="category_id" class="select2" style="width: 100%;" >
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option {{$category->id == $client->category_id?"selected":''}} value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                                 @if($errors->has('category_id'))
@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Soni</label>
-                                <input type="number" name="count" class="form-control {{ $errors->has('count') ? "is-invalid":"" }}" value="{{ old('count') }}" >
+                                <input type="number"  name="count" class="form-control {{ $errors->has('count') ? "is-invalid":"" }}" value="{{old('count',$client->count)}}">
                                 @if($errors->has('count'))
                                     <span class="error invalid-feedback">{{ $errors->first('count') }}</span>
                                 @endif

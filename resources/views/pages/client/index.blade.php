@@ -39,34 +39,51 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nomi</th>
-                                <th>Narhi</th>
+                                <th>Agent</th>
+                                <th>Kategorya</th>
+                                <th>Soni</th>
+                                <th>Jammi summa</th>
+                                <th>Yaratilgan sana</th>
                                 <th class="w-25">@lang('global.actions')</th>
                             </tr>
                             </thead>
                             <tbody>
-{{--                            @foreach($categories as $category)--}}
-{{--                                <tr>--}}
-{{--                                    <td>{{ $category->id }}</td>--}}
-{{--                                    <td>{{ $category->name }}  </td>--}}
-{{--                                    <td>  <span class="badge badge-primary">{{ number_format($category->price) }} </span></td>--}}
+                            @foreach($clients as $client)
+                                <tr data-id="2" style="cursor: pointer;">
+                                    <td>#{{$client->id}}</td>
+                                    <td>{{$client->agent->firstname}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-rounded waves-effect waves-light">  {{$client->category->name}}</button>
 
-{{--                                    <td class="text-center">--}}
-{{--                                        @can('category.delete')--}}
-{{--                                            <form action="{{ route('categoryDestroy',$category->id) }}" method="post">--}}
-{{--                                                @csrf--}}
-{{--                                                <div class="btn-group">--}}
-{{--                                                    @can('category.edit')--}}
-{{--                                                        <a href="{{ route('categoryEdit',$category->id) }}" type="button" class="btn btn-info btn-sm"> @lang('global.edit')</a>--}}
-{{--                                                    @endcan--}}
-{{--                                                    <input name="_method" type="hidden" value="DELETE">--}}
-{{--                                                    <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Вы уверены?')) { this.form.submit() } "> @lang('global.delete')</button>--}}
-{{--                                                </div>--}}
-{{--                                            </form>--}}
-{{--                                        @endcan--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-rounded waves-effect waves-light">  {{$client->count}}</button>
+
+                                    </td>
+                                    <td>
+                                        {{price_format($client->count*$client->category->price)}}
+                                    </td>
+                                    <td >{{$client->created_at->format('y-m-d')}}</td>
+
+                                    <td>
+                                        @can('client.delete')
+                                            <form method="post" action="{{route('clientDestroy',$client->id)}}">
+                                                @csrf
+                                                @can('client.edit')
+                                                    <a href="{{ route('clientEdit',$client->id) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                @endcan
+                                                <input name="_method" type="hidden" value="DELETE">
+                                                <button type="button"  onclick="if (confirm('Вы уверены?')) { this.form.submit() } " class="btn btn-outline-danger btn-sm edit" title="Delete">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+
+                                        @endcan()
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

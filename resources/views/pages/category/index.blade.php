@@ -56,9 +56,9 @@
                                             <form action="{{ route('categoryDestroy',$category->id) }}" method="post">
                                                 @csrf
                                                 <div class="btn-group">
-                                                    @can('category.edit')
-                                                        <a href="{{ route('categoryEdit',$category->id) }}" type="button" class="btn btn-info btn-sm"> @lang('global.edit')</a>
-                                                    @endcan
+{{--                                                    @can('category.edit')--}}
+{{--                                                        <a href="{{ route('categoryEdit',$category->id) }}" type="button" class="btn btn-info btn-sm"> @lang('global.edit')</a>--}}
+{{--                                                    @endcan--}}
                                                     <input name="_method" type="hidden" value="DELETE">
                                                     <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Вы уверены?')) { this.form.submit() } "> @lang('global.delete')</button>
                                                 </div>

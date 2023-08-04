@@ -49,7 +49,7 @@
                             @foreach($agents as $agent)
                                 <tr>
                                     <td>{{ $agent->id }}</td>
-                                    <td>{{ $agent->firstname }}  {{$agent->lastname}}</td>
+                                    <td><a href="{{route('transactionHistory',$agent->id)}}">{{$agent->firstname}}  {{$agent->lastname}}</a></td>
                                     <td>{{ phoneFormat($agent->phone) }}</td>
                                     <td>  <span class="badge badge-primary">{{ $agent->promo_cod }} </span></td>
 
